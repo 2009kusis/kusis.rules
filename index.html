@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>자유전공학부 온라인 규정집</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 흑백 위주: 흰 바탕, 검정 글자, 회색 선. 색은 인용 링크(파랑)와 검색 강조(노랑)에만 */
+  --bg:#ffffff; --paper:#ffffff; --ink:#111111; --muted:#555555; --line:#dddddd; --line2:#8a8a8a;
+  --accent:#111111; --accent-soft:#f0f0f0; --on-accent:#ffffff; --ref:#0645ad; --mark:#fff1a0; --old:#555555; --old-soft:#f3f3f3;
+  --font-body:'Batang','바탕','BatangChe','Noto Serif KR','AppleMyungjo',serif;
+  --font-ui:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121212; --paper:#181818; --ink:#ededed; --muted:#a8a8a8; --line:#333333; --line2:#777777;
+    --accent:#ededed; --accent-soft:#262626; --on-accent:#121212; --ref:#8ab4f8; --mark:#5c5214; --old:#a8a8a8; --old-soft:#222222;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121212; --paper:#181818; --ink:#ededed; --muted:#a8a8a8; --line:#333333; --line2:#777777;
+  --accent:#ededed; --accent-soft:#262626; --on-accent:#121212; --ref:#8ab4f8; --mark:#5c5214; --old:#a8a8a8; --old-soft:#222222;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:15px;line-height:1.6;letter-spacing:-0.01em;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,input,select{font:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--line)}
+.top-in{max-width:1240px;margin:0 auto;padding:10px 16px;display:flex;gap:12px;align-items:center}
+.brand{display:flex;flex-direction:column;line-height:1.2;text-decoration:none;flex:none}
+.brand b{font-family:var(--font-ui);font-size:16px;font-weight:700;letter-spacing:-0.02em}
+.brand span{font-size:12px;color:var(--muted)}
+.search{flex:1;display:flex;gap:6px;align-items:center;min-width:0;position:relative}
+.search input{flex:1;min-width:0;border:1px solid var(--line2);background:var(--paper);border-radius:2px;padding:0 12px;height:40px}
+.search select{border:1px solid var(--line2);background:var(--paper);border-radius:2px;padding:0 8px;height:40px;max-width:120px}
+.btn{border:1px solid var(--line2);background:var(--paper);border-radius:2px;padding:0 16px;height:40px;display:inline-flex;align-items:center;font-weight:500;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none}
+.btn:hover{border-color:var(--ink);background:var(--bg)}
+.btn.primary{background:var(--paper);border-color:var(--ink);color:var(--ink)}
+.btn.primary:hover{background:var(--accent-soft)}
+
+/* search results */
+.results{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--paper);border:1px solid var(--line);border-radius:2px;box-shadow:0 12px 32px rgba(0,0,0,.14);max-height:min(70vh,560px);overflow:auto;z-index:40}
+.results[hidden]{display:none}
+.res-head{position:sticky;top:0;background:var(--paper);padding:8px 14px;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;justify-content:space-between}
+.res-group{padding:6px 0;border-bottom:1px solid var(--line)}
+.res-group h4{margin:0;padding:6px 14px 2px;font-size:12px;color:var(--muted);font-weight:600}
+.res-item{display:block;width:100%;text-align:left;border:0;background:none;padding:6px 14px;cursor:pointer}
+.res-item:hover,.res-item:focus{background:var(--accent-soft)}
+.res-item b{font-family:var(--font-body)}
+.res-item div{font-size:13px;color:var(--muted);font-family:var(--font-body)}
+
+/* home */
+.wrap{max-width:1240px;margin:0 auto;padding:24px 16px 64px}
+.home h1{font-family:var(--font-body);font-size:30px;font-weight:700;letter-spacing:-0.02em;margin:12px 0 28px;text-wrap:balance}
+.home p.lead{color:var(--muted);margin:0 0 24px}
+.cats{display:grid;gap:28px}
+.cat h2{font-size:13px;letter-spacing:.08em;color:var(--muted);margin:0 0 10px;font-weight:600;display:flex;gap:8px;align-items:center}
+.cat h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.card{display:flex;flex-direction:column;gap:6px;text-decoration:none;background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:18px;min-height:124px}
+.card:hover{border-color:var(--line2);background:var(--accent-soft)}
+.card b{font-family:var(--font-body);font-size:17px;font-weight:700;line-height:1.4;letter-spacing:-0.01em}
+.card .meta{font-size:13px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.chip{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:2px;border:1px solid var(--line2);color:var(--muted);line-height:1.5}
+.chip.cur{border-color:var(--ink);color:var(--ink);background:transparent}
+.chip.old{border-color:var(--old);color:var(--old);background:var(--old-soft)}
+
+/* doc */
+.doc{max-width:1240px;margin:0 auto;padding:0 16px 80px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px}
+.toc{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;padding:20px 0;font-size:13px}
+.toc a{display:block;text-decoration:none;padding:4px 8px;border-radius:2px;color:var(--muted);font-size:13.5px;line-height:1.45}
+.toc a:hover{background:var(--accent-soft);color:var(--ink)}
+.toc .l1{font-weight:700;color:var(--ink);margin-top:10px}
+.toc .l2{font-weight:600;color:var(--ink);margin-top:8px}
+.toc .l3{padding-left:16px;color:var(--ink)}
+.toc .l4{padding-left:24px}
+.toc .art{padding-left:28px}
+.toc .art.flat{padding-left:8px}
+.main{min-width:0;padding-top:20px}
+.dochead{display:flex;gap:16px;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--line2)}
+.dochead h1{font-family:var(--font-body);font-size:27px;font-weight:700;letter-spacing:-0.02em;line-height:1.3;margin:6px 0 2px;text-wrap:balance}
+.dochead .sub{color:var(--muted);font-size:14px}
+.dochead .verline{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px;margin-top:6px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;position:relative}
+.pop{position:absolute;right:0;top:calc(100% + 6px);max-height:70vh;overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:2px;box-shadow:0 12px 32px rgba(0,0,0,.16);width:min(340px,86vw);z-index:25;padding:8px}
+.pop[hidden]{display:none}
+.pop h3{font-size:12px;color:var(--muted);margin:6px 8px;font-weight:600}
+.hist a,.hist span{display:flex;justify-content:space-between;gap:8px;padding:7px 8px;border-radius:2px;text-decoration:none;font-variant-numeric:tabular-nums}
+.hist a:hover{background:var(--accent-soft)}
+.hist a.on{background:var(--accent-soft);font-weight:700;box-shadow:inset 3px 0 0 var(--ink)}
+.hist span{color:var(--muted);opacity:.7}
+.banner{background:var(--old-soft);border:1px solid var(--old);color:var(--ink);border-radius:2px;padding:10px 14px;margin:12px 0;font-size:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.note{background:var(--bg);border:1px dashed var(--line);border-radius:2px;padding:8px 12px;font-size:13px;color:var(--muted);margin:10px 0}
+.body{font-family:var(--font-body);font-size:16.5px;line-height:1.95;letter-spacing:0;font-variant-numeric:normal;max-width:none;background:var(--paper);border:1px solid var(--line2);padding:40px 48px 56px;margin-top:16px}
+.body h2.h{font-family:var(--font-body);margin:2.2em 0 .9em;line-height:1.4;font-weight:700}
+.body > :first-child{margin-top:0}
+.h.lv1{font-size:23px;text-align:center}
+.h.lv2{font-size:20px}
+.h.lv3{font-size:17px}
+.h.lv4{font-size:16px}
+.pre p{text-indent:1em;margin:0}
+.pre .date{text-align:right;color:var(--muted)}
+article.art{position:relative;padding:0 64px 0 0;margin:0;scroll-margin-top:84px}
+article.art:hover .copy{opacity:1}
+article.art.flash{animation:flash 1.6s ease-out}
+@keyframes flash{0%{background:var(--accent-soft)}100%{background:transparent}}
+@media (prefers-reduced-motion: reduce){article.art.flash{animation:none;background:var(--accent-soft)}}
+.art .ah{display:flex;gap:8px;align-items:baseline}
+.art .ah .lab{font-weight:700}
+.art .hn{margin-right:.35em}
+.art .ah .ttl{font-weight:700}
+.art .copy{position:absolute;right:0;top:4px;font-family:var(--font-ui);font-size:12px;font-weight:600;border:1px solid var(--line2);background:var(--paper);border-radius:2px;padding:0 10px;height:28px;cursor:pointer;color:var(--ink);opacity:.35}
+.art:hover .copy,.art .copy:focus{opacity:1}
+.art p{margin:0}
+.art .lab,.art .ttl{font-weight:700}
+.art .shead{font-weight:700;margin-top:1.2em}
+.art .ho{padding-left:2.2em;text-indent:-1.2em}
+.art .mok{padding-left:3.4em;text-indent:-1.2em}
+
+.art.hl{background:var(--accent-soft)}
+a.ref{color:var(--ref);text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;cursor:pointer}
+a.ref:hover{text-decoration-style:solid}
+.tgt{background:var(--mark);border-radius:3px}
+
+/* reference popup */
+.refpop{position:fixed;z-index:60;background:var(--paper);border:1px solid var(--line);border-radius:2px;box-shadow:0 16px 40px rgba(0,0,0,.22);width:min(460px,calc(100vw - 24px));max-height:min(60vh,460px);display:flex;flex-direction:column}
+.refpop[hidden]{display:none}
+.refpop .rp-h{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted)}
+.refpop .rp-b{overflow:auto;padding:10px 14px;font-family:var(--font-body);font-size:15px;line-height:1.75}
+.refpop .rp-b .ah{font-weight:700;margin-bottom:2px}
+.refpop .rp-f{display:flex;gap:6px;justify-content:flex-end;padding:8px 10px;border-top:1px solid var(--line)}
+.refpop .x{border:0;background:none;cursor:pointer;font-size:18px;line-height:1;color:var(--muted);padding:2px 6px}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--paper);color:var(--ink);border:1px solid var(--ink);box-shadow:0 6px 20px rgba(0,0,0,.12);padding:10px 18px;border-radius:2px;font-size:14px;font-weight:500;z-index:80}
+.toast[hidden]{display:none}
+.tocbtn{display:none}
+.foot{color:var(--muted);font-size:12px;margin-top:40px}
+
+@media (max-width: 860px){
+  .body{padding:24px 18px 40px}
+  article.art{padding-right:0}
+  .art .copy{position:static;float:right;margin:0 0 4px 8px;opacity:.8}
+  .doc{grid-template-columns:1fr}
+  .toc{display:none;position:fixed;inset:56px 0 0 0;z-index:35;background:var(--paper);max-height:none;padding:12px 16px 40px;top:auto}
+  .toc.open{display:block}
+  .tocbtn{display:inline-block}
+  .brand span{display:none}
+  .search select{max-width:84px}
+  .body{font-size:15.5px}
+}
+@media (max-width: 480px){
+  .brand b{font-size:15px}
+  .dochead h1{font-size:22px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#home"><b>고려대학교 자유전공학부</b></a>
+    <form class="search" id="sform" role="search" autocomplete="off">
+      <label for="q" style="position:absolute;left:-9999px">조문 검색</label>
+      <input id="q" type="search" placeholder="키워드로 조문 검색 (예: 탄핵, 정족수)">
+      <label for="scope" style="position:absolute;left:-9999px">검색 범위</label>
+      <select id="scope">
+        <option value="doc">이 문서</option>
+        <option value="cur" selected>현행 전체</option>
+        <option value="all">연혁 포함</option>
+      </select>
+      <div class="results" id="results" hidden></div>
+    </form>
+  </div>
+</header>
+<div id="view"></div>
+<div class="refpop" id="refpop" hidden role="dialog" aria-label="인용 조문">
+  <div class="rp-h"><span id="rp-src"></span><button class="x" id="rp-x" aria-label="닫기">×</button></div>
+  <div class="rp-b" id="rp-b"></div>
+  <div class="rp-f"><button class="btn" id="rp-copy">조문 복사</button><button class="btn primary" id="rp-go">이 조문으로 이동</button></div>
+</div>
+<div class="toast" id="toast" hidden></div>
+<script src="data.js"></script>
+<script>
+(function(){
+'use strict';
+const D = window.REG_DATA;
+const FAM = {}; const VER = {};
+D.families.forEach(f => { FAM[f.id] = f; f.versions.forEach(v => { v.fam = f; VER[v.id] = v; v.arts = {}; v.blocks.forEach(b => { if (b.t === 'art') v.arts[b.id] = b; }); }); });
+const CAT_ORDER = ['회칙','세칙','규칙','자치규약'];
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CIRC = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';
+const FW = s => s.replace(/[０-９]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0));
+let state = { ver: null, hlq: '' };
+
+/* ---------- helpers ---------- */
+function ndate(s){ return FW(s).replace(/[^0-9]/g,''); }
+function artText(v, a){
+  const head = ((a.bu ? '부칙 ' : '') + a.label + (a.title ? (a.bold_title ? ' ' + a.title : '【' + a.title + '】') : '')).trim();
+  const ps = a.paras.map(p => p.k === 'ho' ? p.x.replace(/^([0-9０-９]+\.)(?=\S)/, '$1 ') : p.x);
+  if (ps.length && !a.bold_title && a.title) return [head + ps[0]].concat(ps.slice(1)).join('\n');
+  return [head].concat(ps).join('\n');
+}
+function citeLine(v, a){ return v.fam.title + '(' + v.date + ' ' + v.kind + ') ' + (a.bu ? '부칙 ' : '') + a.label; }
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => t.hidden = true, 1800); }
+async function copyText(txt){
+  try { await navigator.clipboard.writeText(txt); toast('복사했습니다'); return; } catch(e) {}
+  try { const ta = document.createElement('textarea'); ta.value = txt; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); const ok = document.execCommand('copy'); ta.remove(); toast(ok ? '복사했습니다' : '복사하지 못했습니다. 텍스트를 직접 선택해 주세요'); } catch(e){ toast('복사하지 못했습니다. 텍스트를 직접 선택해 주세요'); }
+}
+function verAt(fam, date){ // version of fam in force at given date
+  const d = ndate(date); let best = null;
+  fam.versions.forEach(v => { if (ndate(v.date) <= d) best = v; });
+  return best || fam.versions[fam.versions.length - 1];
+}
+function docTarget(title){
+  const t = title.replace(/\s/g,'');
+  if (/총학생회/.test(t) && !/자유전공학부/.test(t)) return null;
+  if (/학생회칙/.test(t)) return 'hoechik';
+  if (/선거/.test(t)) return 'seongeo';
+  if (/징계/.test(t)) return 'jinggye';
+  if (/자치공간/.test(t)) return 'jachigonggan';
+  if (/각종공고/.test(t)) return 'gakjong';
+  if (/반배정/.test(t)) return 'banbaejeong';
+  if (/사물함/.test(t)) return 'samulham';
+  return null;
+}
+function findArt(v, n, sub){
+  const id = 'a' + n + (sub ? '-' + sub : '');
+  return v.arts[id] ? id : null;
+}
+
+/* ---------- reference linking ---------- */
+const RX = /([｢「『][^｣」』]{1,40}[｣」』])|((?:본회\s*)?(?:총학생회칙|학생회칙|회칙)\s*)?제\s*([0-9０-９]+)\s*조(?:\s*의\s*([0-9０-９]+))?((?:\s*제\s*[0-9０-９]+\s*항)?(?:\s*제\s*[0-9０-９]+\s*호)?)|제\s*([0-9０-９]+)\s*항((?:\s*제\s*[0-9０-９]+\s*호)?)/g;
+function linkify(text, v, a){
+  let out = ''; let last = 0; let pendingDoc = undefined; let pendingEnd = -10;
+  RX.lastIndex = 0; let m;
+  while ((m = RX.exec(text))){
+    out += hl(text.slice(last, m.index));
+    last = RX.lastIndex;
+    if (m[1]){ // bracketed title
+      pendingDoc = docTarget(m[1]); pendingEnd = RX.lastIndex; out += hl(m[0]); continue;
+    }
+    let tv = v, artId = null, hang = null, ho = null;
+    if (m[3]){
+      let famId = v.fam.id;
+      const gap = m.index - pendingEnd;
+      if (gap >= 0 && gap <= 2 && pendingEnd > 0){ famId = pendingDoc; }
+      else if (m[2]){ famId = /총학생회칙/.test(m[2]) ? null : 'hoechik'; }
+      pendingEnd = -10;
+      if (famId === null || famId === undefined){ out += hl(m[0]); continue; }
+      tv = famId === v.fam.id ? v : verAt(FAM[famId], v.date);
+      artId = findArt(tv, parseInt(FW(m[3]),10), m[4] ? parseInt(FW(m[4]),10) : null);
+      const hm = /제\s*([0-9０-９]+)\s*항/.exec(m[5] || ''); const om = /제\s*([0-9０-９]+)\s*호/.exec(m[5] || '');
+      hang = hm ? parseInt(FW(hm[1]),10) : null; ho = om ? parseInt(FW(om[1]),10) : null;
+    } else if (m[6]){
+      if (!a || !a.id) { out += hl(m[0]); continue; }
+      artId = a.id;
+      hang = parseInt(FW(m[6]),10);
+      const om = /제\s*([0-9０-９]+)\s*호/.exec(m[7] || ''); ho = om ? parseInt(FW(om[1]),10) : null;
+    }
+    if (!artId || (a && tv === v && artId === a.id && !hang)){ out += hl(m[0]); continue; }
+    out += '<a class="ref" tabindex="0" data-v="' + tv.id + '" data-a="' + artId + '"' + (hang ? ' data-h="' + hang + '"' : '') + (ho ? ' data-o="' + ho + '"' : '') + '>' + hl(m[0]) + '</a>';
+  }
+  out += hl(text.slice(last));
+  return out;
+}
+function hl(s){
+  const e = esc(s);
+  if (!state.hlq) return e;
+  const terms = state.hlq.split(/\s+/).filter(Boolean).map(t => esc(t).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  if (!terms.length) return e;
+  return e.replace(new RegExp('(' + terms.join('|') + ')','g'), '<mark>$1</mark>');
+}
+
+/* ---------- rendering ---------- */
+function renderHome(){
+  state.ver = null;
+  const byCat = {};
+  D.families.forEach(f => (byCat[f.cat] = byCat[f.cat] || []).push(f));
+  let h = '<div class="wrap home"><h1>자유전공학부 온라인 규정집</h1><div class="cats">';
+  CAT_ORDER.forEach(c => {
+    if (!byCat[c]) return;
+    h += '<section class="cat"><h2>' + c + '</h2><div class="cards">';
+    byCat[c].forEach(f => {
+      const cur = VER[f.current];
+      h += '<a class="card" href="#v-' + cur.id + '"><b>' + esc(f.title) + '</b>' + (cur.subtitle ? '<span style="color:var(--muted);font-size:13px">' + esc(cur.subtitle) + '</span>' : '') +
+        '<span class="meta"><span class="chip cur">현행 ' + esc(cur.date) + ' ' + esc(cur.kind) + '</span><span>개정본 ' + f.versions.length + '건</span></span></a>';
+    });
+    h += '</div></section>';
+  });
+  h += '</div><p class="foot">원문 PDF·HWP·게시물 사진을 옮겨 정리한 열람본입니다. 효력의 기준은 각 기구가 공포한 원문입니다.</p></div>';
+  $('#view').innerHTML = h;
+  document.title = '자유전공학부 온라인 규정집';
+}
+
+function renderDoc(v, anchor){
+  state.ver = v;
+  const f = v.fam; const isCur = f.current === v.id;
+  let toc = ''; let body = '';
+  const hasHeads = v.blocks.some(b => b.t === 'h' && !b.bu);
+  v.blocks.forEach((b, i) => {
+    if (b.t === 'pre'){
+      toc += '<a class="l2" href="#" data-go="pre">' + esc(b.title) + '</a>';
+      body += '<section class="pre" id="art-pre"><h2 class="h lv2">' + esc(b.title) + '</h2>' + b.paras.map(p => '<p>' + linkify(p, v, null) + '</p>').join('') + (b.date ? '<p class="date">' + esc(b.date) + '</p>' : '') + '</section>';
+    } else if (b.t === 'intro'){
+      body += '<section class="pre">' + b.paras.map(p => '<p>' + hl(p) + '</p>').join('') + '</section>';
+    } else if (b.t === 'h'){
+      const id = 'h' + i;
+      toc += '<a class="l' + b.lv + '" href="#" data-go="' + id + '">' + esc(b.text) + '</a>';
+      body += '<h2 class="h lv' + b.lv + '" id="art-' + id + '">' + esc(b.text) + '</h2>';
+    } else if (b.t === 'art'){
+      toc += '<a class="art' + (hasHeads ? '' : ' flat') + '" href="#" data-go="' + b.id + '">' + esc(b.label) + (b.title && !b.bold_title ? ' ' + esc(b.title) : '') + '</a>';
+      body += renderArt(v, b);
+    } else if (b.t === 'free'){
+      body += '<div class="art">' + b.paras.map(p => '<p class="' + p.k + '">' + linkify(p.x, v, null) + '</p>').join('') + '</div>';
+    }
+  });
+  // history popover
+  const avail = {}; f.versions.forEach(x => avail[ndate(x.date)] = x);
+  let hist = '<h3>개정본 열기</h3><div class="hist">';
+  f.versions.slice().reverse().forEach(x => {
+    hist += '<a href="#v-' + x.id + '" class="' + (x.id === v.id ? 'on' : '') + '"><span style="all:unset">' + esc(x.date) + ' ' + esc(x.kind) + '</span>' + (x.id === f.current ? '<span class="chip cur" style="all:unset;color:var(--ink);font-size:12px;font-weight:700">현행</span>' : '') + '</a>';
+  });
+  hist += '</div>';
+  const full = VER[f.current].history || [];
+  if (full.length > f.versions.length){
+    hist += '<h3>전체 연혁 (원문이 없는 개정본은 회색)</h3><div class="hist">';
+    full.slice().reverse().forEach(([d, k]) => {
+      const x = avail[ndate(d)];
+      hist += x ? '<a href="#v-' + x.id + '"><span style="all:unset">' + esc(d) + ' ' + esc(k) + '</span></a>' : '<span>' + esc(d) + ' ' + esc(k) + '</span>';
+    });
+    hist += '</div>';
+  }
+  const h = '<div class="doc"><nav class="toc" id="toc" aria-label="목차">' + toc + '</nav><main class="main">' +
+    '<div class="dochead"><div><span class="chip">' + esc(f.cat) + '</span><h1>' + esc(v.title) + '</h1>' + (v.subtitle ? '<div class="sub">' + esc(v.subtitle) + '</div>' : '') +
+    '<div class="verline"><span class="chip ' + (isCur ? 'cur' : 'old') + '">' + (isCur ? '현행' : '연혁본') + '</span><span>' + esc(v.date) + ' ' + esc(v.kind) + '</span></div></div>' +
+    '<div class="tools"><button class="btn tocbtn" id="tocbtn" type="button">목차</button><button class="btn" id="pdfbtn" type="button">PDF 다운로드</button><button class="btn primary" id="histbtn" type="button" aria-expanded="false">개정 연혁 ▾</button><div class="pop" id="histpop" hidden>' + hist + '</div></div></div>' +
+    (isCur ? '' : '<div class="banner"><span>지금 보고 있는 것은 <b>' + esc(v.date) + ' ' + esc(v.kind) + '</b> 연혁본입니다.</span><a class="btn" href="#v-' + f.current + '">현행 보기</a></div>') +
+    (v.note ? '<div class="note">' + esc(v.note) + '</div>' : '') +
+    '<div class="body" id="docbody">' + body + '</div></main></div>';
+  $('#view').innerHTML = h;
+  document.title = f.short + ' (' + v.date + ') · 자유전공학부 온라인 규정집';
+  bindDoc(v);
+  if (anchor) setTimeout(() => goArt(anchor, true), 30); else window.scrollTo(0, 0);
+}
+function renderArt(v, b, opt){
+  opt = opt || {};
+  let curH = 0;
+  const pr = (p, inlineHead) => {
+    let tgt = false;
+    if (p.k === 'hang'){ curH = CIRC.indexOf(p.x[0]) + 1; if (opt.h && curH === opt.h && !opt.o) tgt = true; }
+    if (p.k === 'ho'){ const mm = /^([0-9]+)\./.exec(p.x); if (mm && opt.o && parseInt(mm[1],10) === opt.o && (!opt.h || curH === opt.h || (curH === 0 && opt.h === 1))) tgt = true; }
+    const hm = p.k === 'ho' && /^([0-9０-９]+\.)(?=\S)/.exec(p.x);
+    const inner = hm ? '<span class="hn">' + esc(hm[1]) + '</span>' + linkify(p.x.slice(hm[1].length), v, b) : linkify(p.x, v, b);
+    return '<p class="' + p.k + (tgt ? ' tgt' : '') + '">' + (inlineHead || '') + inner + '</p>';
+  };
+  let html = '';
+  const bu = b.bu ? '<span class="lab">부칙 </span>' : '';
+  if (b.num === null || b.num === undefined){ // section-style heading such as "1. [관리권한]"
+    html += '<p class="shead">' + hl(b.label + (b.title ? ' [' + b.title + ']' : '')) + '</p>' + b.paras.map(p => pr(p)).join('');
+  } else if (b.bold_title){
+    html += '<p class="shead"><span class="lab">' + hl(b.label) + '</span> ' + hl(b.title) + '</p>' + b.paras.map(p => pr(p)).join('');
+  } else {
+    const head = bu + '<span class="lab">' + hl(b.label) + '</span>' + (b.title ? '<span class="ttl">【' + hl(b.title) + '】</span>' : '');
+    const first = b.paras[0];
+    if (first && first.k !== 'ho' && first.k !== 'mok'){
+      html += pr(first, head + (b.title ? '' : ' ')) + b.paras.slice(1).map(p => pr(p)).join('');
+    } else {
+      html += '<p>' + head + '</p>' + b.paras.map(p => pr(p)).join('');
+    }
+  }
+  if (opt.bare) return html;
+  return '<article class="art" id="art-' + b.id + '">' + html + '<button class="copy" type="button" data-copy="' + b.id + '" aria-label="' + esc(b.label) + ' 복사">복사</button></article>';
+}
+
+/* ---------- doc interactions ---------- */
+function goArt(id, flash){
+  const el = document.getElementById('art-' + id);
+  if (!el) return;
+  el.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
+  if (flash){ el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
+}
+function bindDoc(v){
+  $('#toc').addEventListener('click', e => { const a = e.target.closest('a[data-go]'); if (!a) return; e.preventDefault(); $('#toc').classList.remove('open'); goArt(a.dataset.go, true); });
+  $('#tocbtn').addEventListener('click', () => $('#toc').classList.toggle('open'));
+  const hb = $('#histbtn'), hp = $('#histpop');
+  hb.addEventListener('click', e => { e.stopPropagation(); hp.hidden = !hp.hidden; hb.setAttribute('aria-expanded', String(!hp.hidden)); });
+  document.addEventListener('click', e => { if (!hp.hidden && !e.target.closest('#histpop')) { hp.hidden = true; hb.setAttribute('aria-expanded','false'); } });
+  $('#docbody').addEventListener('click', e => {
+    const c = e.target.closest('button[data-copy]');
+    if (c){ const a = v.arts[c.dataset.copy]; copyText(artText(v, a) + '\n— ' + citeLine(v, a)); }
+  });
+  $('#pdfbtn').addEventListener('click', () => downloadPdf(v));
+}
+
+/* ---------- PDF ---------- */
+let dlApi;
+const dlReady = (async () => { try { if (window.claude && window.claude.use) { dlApi = await window.claude.use('downloads'); } else { dlApi = null; } } catch(e) { dlApi = null; } })();
+async function downloadPdf(v){
+  if (dlApi === undefined) { toast('잠시 후 다시 눌러 주세요'); }
+  try {
+    const r = await fetch(v.pdf); const blob = await r.blob();
+    if (dlApi){ await dlApi.save({filename: v.pdfName, data: blob}); return; }
+  } catch(e){ if (e && e.code === 'declined') return; }
+  const l = document.createElement('a'); l.href = v.pdf; l.target = '_blank'; l.rel = 'noopener'; document.body.appendChild(l); l.click(); l.remove();
+}
+
+/* ---------- reference popup ---------- */
+const rp = $('#refpop'); let rpCur = null; let hoverT = null;
+function showRef(link, pinned){
+  const v = VER[link.dataset.v]; const a = v && v.arts[link.dataset.a]; if (!a) return;
+  const h = link.dataset.h ? parseInt(link.dataset.h,10) : null; const o = link.dataset.o ? parseInt(link.dataset.o,10) : null;
+  rpCur = {v, a, pinned};
+  $('#rp-src').textContent = v.fam.short + ' · ' + v.date + (v.fam.current === v.id ? ' 현행' : ' 연혁본');
+  $('#rp-b').innerHTML = '<div class="art">' + renderArt(v, a, {bare: true, h, o}) + '</div>';
+  rp.hidden = false;
+  const r = link.getBoundingClientRect(); const W = rp.offsetWidth, Hh = rp.offsetHeight;
+  let left = Math.min(Math.max(12, r.left), window.innerWidth - W - 12);
+  let top = r.bottom + 8; if (top + Hh > window.innerHeight - 12) top = Math.max(12, r.top - Hh - 8);
+  rp.style.left = left + 'px'; rp.style.top = top + 'px';
+  const t = rp.querySelector('.tgt'); if (t) t.scrollIntoView({block: 'nearest'});
+}
+function hideRef(){ rp.hidden = true; rpCur = null; }
+document.addEventListener('click', e => {
+  const link = e.target.closest('a.ref');
+  if (link){ e.preventDefault(); showRef(link, true); return; }
+  if (!rp.hidden && !e.target.closest('#refpop')) hideRef();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape'){ hideRef(); $('#results').hidden = true; }
+  if (e.key === 'Enter' && e.target.matches && e.target.matches('a.ref')){ e.preventDefault(); showRef(e.target, true); }
+});
+document.addEventListener('mouseover', e => {
+  if (!matchMedia('(hover: hover)').matches) return;
+  const link = e.target.closest && e.target.closest('a.ref');
+  if (link && !rp.contains(link)){ clearTimeout(hoverT); hoverT = setTimeout(() => showRef(link, false), 280); }
+});
+document.addEventListener('mouseout', e => {
+  const link = e.target.closest && e.target.closest('a.ref');
+  if (link) clearTimeout(hoverT);
+  if (rpCur && !rpCur.pinned && (link || e.target.closest && e.target.closest('#refpop'))){
+    setTimeout(() => { if (rpCur && !rpCur.pinned && !rp.matches(':hover') && !document.querySelector('a.ref:hover')) hideRef(); }, 350);
+  }
+});
+rp.addEventListener('click', () => { if (rpCur) rpCur.pinned = true; });
+$('#rp-x').addEventListener('click', hideRef);
+$('#rp-copy').addEventListener('click', () => { if (rpCur) copyText(artText(rpCur.v, rpCur.a) + '\n— ' + citeLine(rpCur.v, rpCur.a)); });
+$('#rp-go').addEventListener('click', () => { if (!rpCur) return; const {v, a} = rpCur; hideRef(); navigate(v.id, a.id); });
+
+/* ---------- search ---------- */
+const IDX = [];
+D.families.forEach(f => f.versions.forEach(v => v.blocks.forEach(b => {
+  if (b.t === 'art') IDX.push({v, a: b, text: (b.label + ' ' + (b.title || '') + ' ' + b.paras.map(p => p.x).join(' ')), lower: null});
+  if (b.t === 'pre') IDX.push({v, a: {id: 'pre', label: b.title, title: '', paras: b.paras.map(x => ({x}))}, text: b.title + ' ' + b.paras.join(' ')});
+})));
+IDX.forEach(r => r.lower = r.text.replace(/\s+/g, ' ').toLowerCase());
+function snippet(t, terms){
+  const low = t.toLowerCase(); let i = low.indexOf(terms[0]); if (i < 0) i = 0;
+  const s = Math.max(0, i - 30); const piece = (s > 0 ? '…' : '') + t.slice(s, s + 110) + (s + 110 < t.length ? '…' : '');
+  const re = new RegExp('(' + terms.map(x => esc(x).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|') + ')', 'gi');
+  return esc(piece).replace(re, '<mark>$1</mark>');
+}
+function runSearch(){
+  const q = $('#q').value.trim(); const box = $('#results');
+  if (!q){ box.hidden = true; if (state.hlq){ state.hlq = ''; } return; }
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  const scope = $('#scope').value;
+  let rows = IDX.filter(r => terms.every(t => r.lower.includes(t)));
+  if (scope === 'doc' && state.ver) rows = rows.filter(r => r.v === state.ver);
+  else if (scope === 'cur' || (scope === 'doc' && !state.ver)) rows = rows.filter(r => r.v.fam.current === r.v.id);
+  const groups = []; const gmap = {};
+  rows.forEach(r => { if (!gmap[r.v.id]){ gmap[r.v.id] = {v: r.v, items: []}; groups.push(gmap[r.v.id]); } gmap[r.v.id].items.push(r); });
+  let h = '<div class="res-head"><span>"' + esc(q) + '" ' + rows.length + '건</span><span>' + ({doc:'이 문서', cur:'현행 전체', all:'연혁 포함'}[scope]) + '</span></div>';
+  if (!rows.length) h += '<div style="padding:14px;color:var(--muted)">일치하는 조문이 없습니다. 띄어쓰기를 줄이거나 다른 낱말로 찾아보세요.</div>';
+  groups.slice(0, 30).forEach(g => {
+    h += '<div class="res-group"><h4>' + esc(g.v.fam.short) + ' · ' + esc(g.v.date) + (g.v.fam.current === g.v.id ? ' 현행' : ' 연혁본') + ' · ' + g.items.length + '건</h4>';
+    g.items.slice(0, 40).forEach(r => {
+      h += '<button type="button" class="res-item" data-v="' + r.v.id + '" data-a="' + r.a.id + '"><b>' + (r.a.bu ? '부칙 ' : '') + esc(r.a.label) + (r.a.title && !r.a.bold_title ? '【' + esc(r.a.title) + '】' : '') + '</b><div>' + snippet(r.a.paras.map(p => p.x).join(' ') || r.a.title || '', terms) + '</div></button>';
+    });
+    h += '</div>';
+  });
+  box.innerHTML = h; box.hidden = false;
+}
+let sT;
+$('#q').addEventListener('input', () => { clearTimeout(sT); sT = setTimeout(runSearch, 160); });
+$('#scope').addEventListener('change', runSearch);
+$('#q').addEventListener('focus', () => { if ($('#q').value.trim()) runSearch(); });
+$('#sform').addEventListener('submit', e => { e.preventDefault(); runSearch(); });
+$('#results').addEventListener('click', e => {
+  const b = e.target.closest('.res-item'); if (!b) return;
+  state.hlq = $('#q').value.trim();
+  $('#results').hidden = true;
+  navigate(b.dataset.v, b.dataset.a, true);
+});
+document.addEventListener('click', e => { if (!e.target.closest('#sform')) $('#results').hidden = true; });
+
+/* ---------- routing ---------- */
+function navigate(vid, aid, force){
+  const h = 'v-' + vid + (aid ? '--' + aid : '');
+  if (location.hash === '#' + h){ route(force); } else { location.hash = h; }
+}
+function route(force){
+  const h = location.hash.replace(/^#/, '');
+  const m = /^v-([a-z]+-[0-9]+)(?:--([a-z0-9-]+))?$/.exec(h);
+  hideRef();
+  if (!m || !VER[m[1]]){ state.hlq = ''; renderHome(); window.scrollTo(0,0); return; }
+  const v = VER[m[1]];
+  if (state.ver === v && !force && document.getElementById('docbody')){ if (m[2]) goArt(m[2], true); return; }
+  renderDoc(v, m[2]);
+}
+window.addEventListener('hashchange', () => route(true));
+route(true);
+})();
+</script>
+</body>
+</html>
