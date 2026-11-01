@@ -39,10 +39,15 @@ mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
 /* top bar */
 .top{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--line)}
 .top-in{max-width:1240px;margin:0 auto;padding:10px 16px;display:flex;gap:12px;align-items:center}
-.brand{display:flex;flex-direction:column;line-height:1.2;text-decoration:none;flex:none}
-.brand b{font-family:var(--font-ui);font-size:16px;font-weight:700;letter-spacing:-0.02em}
-.brand span{font-size:12px;color:var(--muted)}
-.search{flex:1;display:flex;gap:6px;align-items:center;min-width:0;position:relative}
+.top-in{justify-content:space-between}
+.brand{text-decoration:none;font-family:var(--font-body);font-size:19px;font-weight:700;letter-spacing:-0.02em;line-height:1.3}
+.iconbtn{border:0;background:none;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);font-size:24px;line-height:1;border-radius:2px;flex:none}
+.iconbtn:hover{background:var(--accent-soft)}
+.sr{position:absolute;left:-9999px}
+.sover{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.28);display:flex;justify-content:center;align-items:flex-start;padding:72px 16px 16px}
+.sover[hidden]{display:none}
+.spanel{width:min(720px,100%);background:var(--paper);border:1px solid var(--line2);box-shadow:0 18px 48px rgba(0,0,0,.2);display:flex;flex-direction:column;max-height:calc(100vh - 100px)}
+.search{display:flex;gap:6px;align-items:center;padding:12px;border-bottom:1px solid var(--line)}
 .search input{flex:1;min-width:0;border:1px solid var(--line2);background:var(--paper);border-radius:2px;padding:0 12px;height:40px}
 .search select{border:1px solid var(--line2);background:var(--paper);border-radius:2px;padding:0 8px;height:40px;max-width:120px}
 .btn{border:1px solid var(--line2);background:var(--paper);border-radius:2px;padding:0 16px;height:40px;display:inline-flex;align-items:center;font-weight:500;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none}
@@ -51,7 +56,7 @@ mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
 .btn.primary:hover{background:var(--accent-soft)}
 
 /* search results */
-.results{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--paper);border:1px solid var(--line);border-radius:2px;box-shadow:0 12px 32px rgba(0,0,0,.14);max-height:min(70vh,560px);overflow:auto;z-index:40}
+.results{overflow:auto;min-height:0}
 .results[hidden]{display:none}
 .res-head{position:sticky;top:0;background:var(--paper);padding:8px 14px;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;justify-content:space-between}
 .res-group{padding:6px 0;border-bottom:1px solid var(--line)}
@@ -65,17 +70,21 @@ mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
 .wrap{max-width:1240px;margin:0 auto;padding:24px 16px 64px}
 .home h1{font-family:var(--font-body);font-size:30px;font-weight:700;letter-spacing:-0.02em;margin:12px 0 28px;text-wrap:balance}
 .home p.lead{color:var(--muted);margin:0 0 24px}
-.cats{display:grid;gap:28px}
-.cat h2{font-size:13px;letter-spacing:.08em;color:var(--muted);margin:0 0 10px;font-weight:600;display:flex;gap:8px;align-items:center}
-.cat h2::after{content:"";flex:1;height:1px;background:var(--line)}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.cats{display:grid;gap:36px}
+.cat h2{font-family:var(--font-body);font-size:18px;color:var(--ink);margin:0;padding-bottom:6px;border-bottom:1px solid var(--ink);font-weight:700}
+.cards{display:flex;flex-direction:column}
+.row{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;text-decoration:none;padding:12px 4px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row:hover .rt{text-decoration:underline;text-underline-offset:4px}
+.row .rt{font-family:var(--font-body);font-size:17px;font-weight:700;letter-spacing:-0.01em}
+.row .rs{font-size:13px;color:var(--muted)}
+.row .rd{margin-left:auto;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 .card{display:flex;flex-direction:column;gap:6px;text-decoration:none;background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:18px;min-height:124px}
 .card:hover{border-color:var(--line2);background:var(--accent-soft)}
 .card b{font-family:var(--font-body);font-size:17px;font-weight:700;line-height:1.4;letter-spacing:-0.01em}
 .card .meta{font-size:13px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
-.chip{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:2px;border:1px solid var(--line2);color:var(--muted);line-height:1.5}
-.chip.cur{border-color:var(--ink);color:var(--ink);background:transparent}
-.chip.old{border-color:var(--old);color:var(--old);background:var(--old-soft)}
+.chip{display:inline;font-size:13px;color:var(--muted)}
+.chip.cur,.chip.old{color:var(--muted)}
 
 /* doc */
 .doc{max-width:1240px;margin:0 auto;padding:0 16px 80px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px}
@@ -112,7 +121,7 @@ mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
 .h.lv4{font-size:16px}
 .pre p{text-indent:1em;margin:0}
 .pre .date{text-align:right;color:var(--muted)}
-article.art{position:relative;padding:0 64px 0 0;margin:0;scroll-margin-top:84px}
+article.art{position:relative;padding:0;margin:0;scroll-margin-top:84px}
 article.art:hover .copy{opacity:1}
 article.art.flash{animation:flash 1.6s ease-out}
 @keyframes flash{0%{background:var(--accent-soft)}100%{background:transparent}}
@@ -156,38 +165,77 @@ a.ref:hover{text-decoration-style:solid}
   .toc{display:none;position:fixed;inset:56px 0 0 0;z-index:35;background:var(--paper);max-height:none;padding:12px 16px 40px;top:auto}
   .toc.open{display:block}
   .tocbtn{display:inline-block}
-  .brand span{display:none}
   .search select{max-width:84px}
   .body{font-size:15.5px}
 }
 @media (max-width: 480px){
-  .brand b{font-size:15px}
+  .brand{font-size:17px}
   .dochead h1{font-size:22px}
+}
+
+/* ---- refinements ---- */
+.top-in{max-width:1120px;padding:12px 24px}
+.wrap{max-width:880px;padding:40px 24px 80px}
+.cats{gap:44px}
+.cat h2{font-size:17px;letter-spacing:-0.01em;padding-bottom:8px}
+.row{padding:14px 2px;gap:4px 14px}
+.row .rt{font-size:16.5px}
+.row:hover{background:var(--accent-soft)}
+.doc{max-width:1120px;padding:0 24px 96px;grid-template-columns:232px minmax(0,1fr);gap:40px}
+.toc{border-right:1px solid var(--line);padding:28px 16px 28px 0;top:65px}
+.toc .l2{font-size:13.5px}
+.main{padding-top:28px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--muted);text-decoration:none;margin-bottom:14px}
+.back:hover{color:var(--ink)}
+.dochead{border-bottom:0;padding-bottom:0;align-items:flex-end}
+.dochead h1{font-size:28px;margin:0 0 6px}
+.verline{font-size:13.5px}
+.tools .btn{height:36px;font-size:13.5px;padding:0 14px}
+.body{max-width:860px;border:1px solid var(--line);padding:44px 52px 64px;margin-top:20px;font-size:16px;line-height:1.95}
+.body h2.h{margin:2.6em 0 1em}
+.h.lv2{font-size:19px}
+.h.lv3{font-size:16.5px}
+.pre .date{margin-top:8px}
+.body > :first-child, .body > :first-child > h2.h:first-child{margin-top:0}
+.banner{max-width:860px}
+@media (max-width: 860px){
+  .doc{gap:0;padding:0 16px 64px}
+  .toc{border-right:0}
+  .wrap{padding:28px 16px 64px}
+  .top-in{padding:10px 16px}
+  .body{padding:24px 18px 40px}
+  .dochead h1{font-size:23px}
 }
 </style>
 </head>
 <body>
 <header class="top">
   <div class="top-in">
-    <a class="brand" href="#home"><b>고려대학교 자유전공학부</b></a>
+    <a class="brand" href="#home">자유전공학부 온라인 규정집</a>
+    <button class="iconbtn" id="sbtn" type="button" aria-label="조문 검색" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></button>
+  </div>
+</header>
+<div class="sover" id="sover" hidden>
+  <div class="spanel" role="dialog" aria-label="조문 검색">
     <form class="search" id="sform" role="search" autocomplete="off">
-      <label for="q" style="position:absolute;left:-9999px">조문 검색</label>
-      <input id="q" type="search" placeholder="키워드로 조문 검색 (예: 탄핵, 정족수)">
-      <label for="scope" style="position:absolute;left:-9999px">검색 범위</label>
+      <label for="q" class="sr">검색어</label>
+      <input id="q" type="search" placeholder="검색어 입력">
+      <label for="scope" class="sr">검색 범위</label>
       <select id="scope">
         <option value="doc">이 문서</option>
         <option value="cur" selected>현행 전체</option>
         <option value="all">연혁 포함</option>
       </select>
-      <div class="results" id="results" hidden></div>
+      <button class="iconbtn" id="sclose" type="button" aria-label="검색 닫기">×</button>
     </form>
+    <div class="results" id="results" hidden></div>
   </div>
-</header>
+</div>
 <div id="view"></div>
 <div class="refpop" id="refpop" hidden role="dialog" aria-label="인용 조문">
   <div class="rp-h"><span id="rp-src"></span><button class="x" id="rp-x" aria-label="닫기">×</button></div>
   <div class="rp-b" id="rp-b"></div>
-  <div class="rp-f"><button class="btn" id="rp-copy">조문 복사</button><button class="btn primary" id="rp-go">이 조문으로 이동</button></div>
+  <div class="rp-f"><button class="btn primary" id="rp-go">이 조문으로 이동</button></div>
 </div>
 <div class="toast" id="toast" hidden></div>
 <script src="data.js"></script>
@@ -288,18 +336,18 @@ function renderHome(){
   state.ver = null;
   const byCat = {};
   D.families.forEach(f => (byCat[f.cat] = byCat[f.cat] || []).push(f));
-  let h = '<div class="wrap home"><h1>자유전공학부 온라인 규정집</h1><div class="cats">';
+  let h = '<div class="wrap home"><div class="cats">';
   CAT_ORDER.forEach(c => {
     if (!byCat[c]) return;
     h += '<section class="cat"><h2>' + c + '</h2><div class="cards">';
     byCat[c].forEach(f => {
       const cur = VER[f.current];
-      h += '<a class="card" href="#v-' + cur.id + '"><b>' + esc(f.title) + '</b>' + (cur.subtitle ? '<span style="color:var(--muted);font-size:13px">' + esc(cur.subtitle) + '</span>' : '') +
-        '<span class="meta"><span class="chip cur">현행 ' + esc(cur.date) + ' ' + esc(cur.kind) + '</span><span>개정본 ' + f.versions.length + '건</span></span></a>';
+      h += '<a class="row" href="#v-' + cur.id + '"><span class="rt">' + esc(f.title) + '</span>' + (cur.subtitle ? '<span class="rs">' + esc(cur.subtitle) + '</span>' : '') +
+        '<span class="rd">' + esc(cur.date) + ' ' + esc(cur.kind) + '</span></a>';
     });
     h += '</div></section>';
   });
-  h += '</div><p class="foot">원문 PDF·HWP·게시물 사진을 옮겨 정리한 열람본입니다. 효력의 기준은 각 기구가 공포한 원문입니다.</p></div>';
+  h += '</div></div>';
   $('#view').innerHTML = h;
   document.title = '자유전공학부 온라인 규정집';
 }
@@ -343,11 +391,10 @@ function renderDoc(v, anchor){
     hist += '</div>';
   }
   const h = '<div class="doc"><nav class="toc" id="toc" aria-label="목차">' + toc + '</nav><main class="main">' +
-    '<div class="dochead"><div><span class="chip">' + esc(f.cat) + '</span><h1>' + esc(v.title) + '</h1>' + (v.subtitle ? '<div class="sub">' + esc(v.subtitle) + '</div>' : '') +
-    '<div class="verline"><span class="chip ' + (isCur ? 'cur' : 'old') + '">' + (isCur ? '현행' : '연혁본') + '</span><span>' + esc(v.date) + ' ' + esc(v.kind) + '</span></div></div>' +
+    '<a class="back" href="#home">← 목록으로</a><div class="dochead"><div><h1>' + esc(v.title) + '</h1>' + (v.subtitle ? '<div class="sub">' + esc(v.subtitle) + '</div>' : '') +
+    '<div class="verline" style="color:var(--muted)">' + (isCur ? '현행' : '연혁본') + ' · ' + esc(v.date) + ' ' + esc(v.kind) + '</div></div>' +
     '<div class="tools"><button class="btn tocbtn" id="tocbtn" type="button">목차</button><button class="btn" id="pdfbtn" type="button">PDF 다운로드</button><button class="btn primary" id="histbtn" type="button" aria-expanded="false">개정 연혁 ▾</button><div class="pop" id="histpop" hidden>' + hist + '</div></div></div>' +
     (isCur ? '' : '<div class="banner"><span>지금 보고 있는 것은 <b>' + esc(v.date) + ' ' + esc(v.kind) + '</b> 연혁본입니다.</span><a class="btn" href="#v-' + f.current + '">현행 보기</a></div>') +
-    (v.note ? '<div class="note">' + esc(v.note) + '</div>' : '') +
     '<div class="body" id="docbody">' + body + '</div></main></div>';
   $('#view').innerHTML = h;
   document.title = f.short + ' (' + v.date + ') · 자유전공학부 온라인 규정집';
@@ -381,7 +428,7 @@ function renderArt(v, b, opt){
     }
   }
   if (opt.bare) return html;
-  return '<article class="art" id="art-' + b.id + '">' + html + '<button class="copy" type="button" data-copy="' + b.id + '" aria-label="' + esc(b.label) + ' 복사">복사</button></article>';
+  return '<article class="art" id="art-' + b.id + '">' + html + '</article>';
 }
 
 /* ---------- doc interactions ---------- */
@@ -438,7 +485,7 @@ document.addEventListener('click', e => {
   if (!rp.hidden && !e.target.closest('#refpop')) hideRef();
 });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape'){ hideRef(); $('#results').hidden = true; }
+  if (e.key === 'Escape'){ hideRef(); closeSearch(); }
   if (e.key === 'Enter' && e.target.matches && e.target.matches('a.ref')){ e.preventDefault(); showRef(e.target, true); }
 });
 document.addEventListener('mouseover', e => {
@@ -455,7 +502,6 @@ document.addEventListener('mouseout', e => {
 });
 rp.addEventListener('click', () => { if (rpCur) rpCur.pinned = true; });
 $('#rp-x').addEventListener('click', hideRef);
-$('#rp-copy').addEventListener('click', () => { if (rpCur) copyText(artText(rpCur.v, rpCur.a) + '\n— ' + citeLine(rpCur.v, rpCur.a)); });
 $('#rp-go').addEventListener('click', () => { if (!rpCur) return; const {v, a} = rpCur; hideRef(); navigate(v.id, a.id); });
 
 /* ---------- search ---------- */
@@ -500,10 +546,14 @@ $('#sform').addEventListener('submit', e => { e.preventDefault(); runSearch(); }
 $('#results').addEventListener('click', e => {
   const b = e.target.closest('.res-item'); if (!b) return;
   state.hlq = $('#q').value.trim();
-  $('#results').hidden = true;
+  closeSearch();
   navigate(b.dataset.v, b.dataset.a, true);
 });
-document.addEventListener('click', e => { if (!e.target.closest('#sform')) $('#results').hidden = true; });
+function openSearch(){ $('#sover').hidden = false; $('#sbtn').setAttribute('aria-expanded','true'); $('#scope').value = state.ver ? 'doc' : 'cur'; setTimeout(() => $('#q').focus(), 0); if ($('#q').value.trim()) runSearch(); }
+function closeSearch(){ $('#sover').hidden = true; $('#sbtn').setAttribute('aria-expanded','false'); }
+$('#sbtn').addEventListener('click', openSearch);
+$('#sclose').addEventListener('click', closeSearch);
+$('#sover').addEventListener('click', e => { if (!e.target.closest('.spanel')) closeSearch(); });
 
 /* ---------- routing ---------- */
 function navigate(vid, aid, force){
